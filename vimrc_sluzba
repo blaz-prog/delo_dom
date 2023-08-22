@@ -1,0 +1,204 @@
+"""" START Vundle Configuration 
+
+" Disable file type for vundle
+filetype off                  " required
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Utility
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/MatchTagAlways'
+Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/goyo.vim'
+Plugin 'sk1418/QFGrep'
+" Generic Programming Support 
+Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'romainl/Apprentice'
+Plugin 'w0rp/ale'
+Plugin 'vimwiki/vimwiki'
+Plugin '907th/vim-auto-save'
+Plugin 'aserebryakov/vim-todo-lists'
+Plugin 'matze/vim-move'
+Plugin 'vim-airline/vim-airline'
+Plugin 'leafOfTree/vim-project'
+call vundle#end()            " required
+filetype plugin indent on    " required
+"""" END Vundle Configuration 
+
+let g:UltiSnipsExpandTrigger           = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "odoosnippets", "pyqtsnippets"]
+
+let g:user_emmet_leader_key=";"
+let g:auto_save = 1  " enable AutoSave on Vim startup
+" let g:ycm_autoclose_preview_window_after_completion=1
+" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let mapleader=";"
+noremap ' ;
+map <C-i> "+p
+map <C-c> "+y
+map <Leader>c :InsertCountry<CR>
+noremap <Leader>j :NERDTreeToggle<enter>
+noremap <Leader>w :cd %:p:h<enter>
+noremap <Leader>b :ls<CR>:b<Space>
+noremap <Leader>p :CtrlP<CR>:
+noremap <Leader>c :ALEToggle<CR>
+noremap <Leader>; :bnext<CR>
+noremap <Leader>f :bprevious<CR>
+noremap <Leader>x :!python3 %<CR>
+noremap <Leader>w :%!xmllint --format -<CR>
+" inoremap ( ()<esc>i
+" inoremap { {}<esc>i
+" inoremap <C-j> <Esc>/[)}"'\]>}<CR>oj
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<c-j>"
+" let g:UltiSnipsListSnippets="<c-l>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" let g:UltiSnipsSnippetsDir="~/.vim/snips"
+
+" ale linter settings
+" Write this in your vimrc file
+" let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint'],
+      \   'ruby': ['standardrb', 'rubocop'],
+      \   'javascript': ['eslint'],
+      \}
+
+" let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = "2"
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+set nu
+set term=ansi
+set backupcopy=yes
+let NERDTreeIgnore = ['\.pyc$']
+
+if has('gui_running')
+  set guioptions -=T
+  set guifont=Monospace\ 12
+  colorscheme codeschool
+else
+  set t_Co=256
+  colorscheme zenburn
+endif
+
+autocmd FileType python setlocal completeopt-=preview
+autocmd BufNewFile * silent! 0r ~/.vim/templates/%:e.tpl
+autocmd InsertLeave * silent! update
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=120 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+au BufNewFile,BufRead *.js
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=120 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+au BufNewFile,BufRead *.text
+    \ set textwidth=0 |
+    noremap <Leader>r :set keymap=russian-yawerty<CR>
+    noremap <Leader>a :set keymap=<CR>
+    
+
+au BufNewFile,BufRead *.*
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=0 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+au BufNewFile,BufRead *.xml
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+    \ set textwidth=120 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+let g:vimwiki_list = [
+                        \{'path': '~/vimwiki'},
+                        \{'path': '~/mdwiki'}
+                \]
+
+command! WRIT call WritToggle()
+nnoremap \ gqip
+nnoremap <S-\> gggqG
+nnoremap <C-\> :WRIT<cr>
+
+let s:writ = 0
+
+function! WritToggle()
+    if s:writ
+    	let s:writ = 0
+    	set foldcolumn=0
+    else
+        let s:writ = 1
+        setlocal nonumber
+        setlocal norelativenumber
+        set foldcolumn=5
+        set columns=85
+
+        setlocal formatoptions=ant
+        setlocal textwidth=80
+        setlocal wrapmargin=0
+
+        setlocal noautoindent
+        setlocal nocindent
+        setlocal nosmartindent
+        setlocal indentexpr=
+
+        "let &guifont=substitute(&guifont, ':h\zs\d\+', '\=submatch(0)+1', '')
+        "normal gggqG
+        "write
+    endif
+endfunc
+
