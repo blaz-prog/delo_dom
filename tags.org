@@ -1,0 +1,20 @@
+#+author:blazkon
+#+title: Uporaba tagov v org mode
+#+STARTUP: show2levels
+
+* Tags
+Uporablja se za označevanje mesebojno povezanih
+naslovov. Vsak naslov lahko ima seznam tagov, ki se dodajo
+na konec naslova. 
+
+** Setting tags                                                   :bliznjice:
+
+*C-c C-q* new tag for current headline
+*C-c C-c* isto kot zgoraj
+
+
+** Search tags                                                    :bliznjice:
+
+*C-c / m or C-c \* iskanje tagov
+
+
